@@ -1,4 +1,4 @@
-import 'package:pip_services_activities_dart/pip_services_activities_dart.dart';
+import 'package:pip_services_activities/pip_services_activities.dart';
 
 void main(List<String> argument) {
   try {

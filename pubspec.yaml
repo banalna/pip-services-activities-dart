@@ -1,4 +1,4 @@
-name: pip_services_activities_dart
+name: pip_services_activities
 description: Activities microservice for Pip.Services in Dart
 author: Sergey Seroukhov <seroukhov@gmail.com>
 version: 1.0.0

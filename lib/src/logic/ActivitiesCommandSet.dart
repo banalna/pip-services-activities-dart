@@ -30,9 +30,11 @@ class ActivitiesCommandSet extends CommandSet {
   }
 
   ICommand _makeLogPartyActivityCommand() {
-    return Command('log_party_activity',
-        ObjectSchema(true).withRequiredProperty('activity', PartyActivityV1Schema()),
-        (String correlationId, Parameters args) {      
+    return Command(
+        'log_party_activity',
+        ObjectSchema(true)
+            .withRequiredProperty('activity', PartyActivityV1Schema()),
+        (String correlationId, Parameters args) {
       var activity = PartyActivityV1.fromJsonActivity(args.get('activity'));
       activity.time = DateTimeConverter.toNullableDateTime(activity.time);
       return _controller.logPartyActivity(correlationId, activity);
@@ -40,12 +42,16 @@ class ActivitiesCommandSet extends CommandSet {
   }
 
   ICommand _makeBatchPartyActivitiesCommand() {
-    return Command('batch_party_activities',
-        ObjectSchema(true).withRequiredProperty('activities', ArraySchema(PartyActivityV1Schema())),
+    return Command(
+        'batch_party_activities',
+        ObjectSchema(true).withRequiredProperty(
+            'activities', ArraySchema(PartyActivityV1Schema())),
         (String correlationId, Parameters args) {
-      
-      var activities = List<PartyActivityV1>.from(args.get('activities').map((itemsJson) => PartyActivityV1.fromJsonActivity(itemsJson)));
-      activities.forEach((activity) => activity.time = DateTimeConverter.toNullableDateTime(activity.time));
+      var activities = List<PartyActivityV1>.from(args
+          .get('activities')
+          .map((itemsJson) => PartyActivityV1.fromJsonActivity(itemsJson)));
+      activities.forEach((activity) =>
+          activity.time = DateTimeConverter.toNullableDateTime(activity.time));
       return _controller.batchPartyActivities(correlationId, activities);
     });
   }

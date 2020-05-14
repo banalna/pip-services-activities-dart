@@ -20,7 +20,6 @@ class PartyActivityV1 implements IStringIdentifiable {
   /* Other details like % of progress or new status */
   StringValueMap details;
 
-
   PartyActivityV1(
       {String id,
       String org_id,
@@ -49,7 +48,8 @@ class PartyActivityV1 implements IStringIdentifiable {
     party = ReferenceV1.fromJsonRef(json['party']);
     ref_item = ReferenceV1.fromJsonRef(json['ref_item']);
     var items = json['ref_parents'];
-    ref_parents = List<ReferenceV1>.from(items.map((itemsJson) => ReferenceV1.fromJsonRef(itemsJson)));
+    ref_parents = List<ReferenceV1>.from(
+        items.map((itemsJson) => ReferenceV1.fromJsonRef(itemsJson)));
     ref_party = ReferenceV1.fromJsonRef(json['ref_party']);
     details = StringValueMap.fromJson(json['details']);
   }
@@ -66,13 +66,20 @@ class PartyActivityV1 implements IStringIdentifiable {
       'ref_party': ref_party,
       'details': details
     };
-  }   
+  }
 
   factory PartyActivityV1.fromJsonActivity(Map<String, dynamic> json) {
     var items = json['ref_parents'];
-    return PartyActivityV1(id: json['id'], org_id: json['org_id'], time: DateTime.tryParse(json['time']),
-                           type: json['type'], party: ReferenceV1.fromJsonRef(json['party']), ref_item: ReferenceV1.fromJsonRef(json['ref_item']),
-                           ref_parents: List<ReferenceV1>.from(items.map((itemsJson) => ReferenceV1.fromJsonRef(itemsJson))),
-                           ref_party: ReferenceV1.fromJsonRef(json['ref_party']), details: StringValueMap.fromJson(json['details']));
+    return PartyActivityV1(
+        id: json['id'],
+        org_id: json['org_id'],
+        time: DateTime.tryParse(json['time']),
+        type: json['type'],
+        party: ReferenceV1.fromJsonRef(json['party']),
+        ref_item: ReferenceV1.fromJsonRef(json['ref_item']),
+        ref_parents: List<ReferenceV1>.from(
+            items.map((itemsJson) => ReferenceV1.fromJsonRef(itemsJson))),
+        ref_party: ReferenceV1.fromJsonRef(json['ref_party']),
+        details: StringValueMap.fromJson(json['details']));
   }
 }

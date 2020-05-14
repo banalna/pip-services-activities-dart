@@ -1,25 +1,16 @@
 import 'package:test/test.dart';
 import 'package:pip_services3_commons/pip_services3_commons.dart';
-import 'package:pip_services_activities_dart/pip_services_activities_dart.dart';
+import 'package:pip_services_activities/pip_services_activities.dart';
 
 final ACTIVITY = PartyActivityV1(
     id: null,
     type: 'test',
     time: DateTime.now(),
-    party: ReferenceV1(
-        id: '1',
-        type: 'party',
-        name: 'Test User'
-    ),
-    ref_item: ReferenceV1(
-        id: '2',
-        type: 'party',
-        name: 'Admin User'
-    ),
+    party: ReferenceV1(id: '1', type: 'party', name: 'Test User'),
+    ref_item: ReferenceV1(id: '2', type: 'party', name: 'Admin User'),
     ref_parents: [],
     ref_party: null,
-    details: null
-);
+    details: null);
 
 void main() {
   group('ActivitiesController', () {
@@ -34,9 +25,11 @@ void main() {
       controller.configure(ConfigParams());
 
       var references = References.fromTuples([
-        Descriptor('pip-services-activities', 'persistence', 'memory', 'default', '1.0'),
+        Descriptor('pip-services-activities', 'persistence', 'memory',
+            'default', '1.0'),
         persistence,
-        Descriptor('pip-services-activities', 'controller', 'default', 'default', '1.0'),
+        Descriptor('pip-services-activities', 'controller', 'default',
+            'default', '1.0'),
         controller
       ]);
 
@@ -61,11 +54,12 @@ void main() {
       expect(activity.time, isNotNull);
 
       // Log an activity batch
-      var activities = await controller.batchPartyActivities(null, [ACTIVITY, ACTIVITY]);
+      var activities =
+          await controller.batchPartyActivities(null, [ACTIVITY, ACTIVITY]);
 
       // Get all activities
-      var page =
-          await controller.getPartyActivities(null, FilterParams(), PagingParams());
+      var page = await controller.getPartyActivities(
+          null, FilterParams(), PagingParams());
       expect(page, isNotNull);
       expect(page.data.length, 3);
       activity1 = page.data[0];

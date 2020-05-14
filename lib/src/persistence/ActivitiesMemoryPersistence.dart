@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:pip_services3_commons/pip_services3_commons.dart';
 import 'package:pip_services3_data/pip_services3_data.dart';
-import 'package:pip_services_activities_dart/src/persistence/IActivitiesPersistence.dart';
-import '../../pip_services_activities_dart.dart';
+import 'package:pip_services_activities/src/persistence/IActivitiesPersistence.dart';
+import '../../pip_services_activities.dart';
 import '../data/version1/PartyActivityV1.dart';
 import './IActivitiesPersistence.dart';
 
@@ -20,7 +20,7 @@ class ActivitiesMemoryPersistence
     if (value == null || search == null) {
       return false;
     }
-    return value.toLowerCase().contains(search);    
+    return value.toLowerCase().contains(search);
   }
 
   bool matchSearch(PartyActivityV1 item, String search) {
@@ -33,11 +33,11 @@ class ActivitiesMemoryPersistence
     }
     if (item.ref_item != null && matchString(item.ref_item.name, search)) {
       return true;
-    }    
+    }
     if (item.ref_party != null && matchString(item.ref_party.name, search)) {
       return true;
     }
-    return false;    
+    return false;
   }
 
   bool equalIds(ReferenceV1 reference, String id) {
@@ -46,18 +46,19 @@ class ActivitiesMemoryPersistence
 
   bool includeId(List<ReferenceV1> references, String id) {
     if (references == null) return false;
-      for (var i = 0; i < references.length; i++) {
-        var ref = references[i];
-        if (ref != null && ref.id == id) return true;
-      }
+    for (var i = 0; i < references.length; i++) {
+      var ref = references[i];
+      if (ref != null && ref.id == id) return true;
+    }
     return false;
-  }  
+  }
 
   Function composeFilter(FilterParams filter) {
     filter = filter ?? FilterParams();
 
     var search = filter.getAsNullableString('search');
-    var id = filter.getAsNullableString('id') ?? filter.getAsNullableString('activity_id');
+    var id = filter.getAsNullableString('id') ??
+        filter.getAsNullableString('activity_id');
     var orgId = filter.getAsNullableString('org_id');
     var type = filter.getAsNullableString('type');
     var includeTypes = filter.getAsObject('include_types');
@@ -75,7 +76,7 @@ class ActivitiesMemoryPersistence
     }
     if (excludeTypes != null && excludeTypes is! List) {
       excludeTypes = ('' + excludeTypes).split(',');
-    }    
+    }
 
     return (item) {
       if (search != null && !matchSearch(item, search)) {
@@ -93,7 +94,7 @@ class ActivitiesMemoryPersistence
 
       if (includeTypes != null && includeTypes.contains(item.id)) {
         return false;
-      }                
+      }
       if (excludeTypes != null && excludeTypes.contains(item.id)) {
         return false;
       }
@@ -115,15 +116,15 @@ class ActivitiesMemoryPersistence
       if (refItemId != null && !equalIds(item.ref_item, refItemId)) {
         return false;
       }
-            
+
       if (fromTime != null && item.time >= fromTime) {
         return false;
       }
       if (toTime != null && item.time < toTime) {
         return false;
-      }           
+      }
 
-      return true; 
+      return true;
     };
   }
 
@@ -144,7 +145,7 @@ class ActivitiesMemoryPersistence
   }
 
   @override
-  Future deleteByFilter(String correlationId, dynamic filter){
+  Future deleteByFilter(String correlationId, dynamic filter) {
     return super.deleteByFilter(correlationId, composeFilter(filter));
-  }    
+  }
 }

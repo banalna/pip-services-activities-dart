@@ -8,13 +8,19 @@ import './IActivitiesController.dart';
 import './ActivitiesCommandSet.dart';
 
 class ActivitiesController
-    implements IActivitiesController, IConfigurable, IReferenceable, ICommandable {
-  static final ConfigParams _defaultConfig = ConfigParams.fromTuples(
-        ['dependencies.persistence', 'pip-services-activities:persistence:*:*:1.0']
-    );
+    implements
+        IActivitiesController,
+        IConfigurable,
+        IReferenceable,
+        ICommandable {
+  static final ConfigParams _defaultConfig = ConfigParams.fromTuples([
+    'dependencies.persistence',
+    'pip-services-activities:persistence:*:*:1.0'
+  ]);
   IActivitiesPersistence persistence;
   ActivitiesCommandSet commandSet;
-  DependencyResolver dependencyResolver = DependencyResolver(ActivitiesController._defaultConfig);
+  DependencyResolver dependencyResolver =
+      DependencyResolver(ActivitiesController._defaultConfig);
 
   @override
   void configure(ConfigParams config) {
@@ -24,7 +30,8 @@ class ActivitiesController
   @override
   void setReferences(IReferences references) {
     dependencyResolver.setReferences(references);
-    persistence = dependencyResolver.getOneRequired<IActivitiesPersistence>('persistence');
+    persistence = dependencyResolver
+        .getOneRequired<IActivitiesPersistence>('persistence');
   }
 
   @override
@@ -40,15 +47,18 @@ class ActivitiesController
   }
 
   @override
-  Future<PartyActivityV1> logPartyActivity(String correlationId, PartyActivityV1 activity) {
+  Future<PartyActivityV1> logPartyActivity(
+      String correlationId, PartyActivityV1 activity) {
     activity.time = DateTimeConverter.toNullableDateTime(activity.time);
     activity.time = activity.time ?? DateTime.now();
     return persistence.create(correlationId, activity);
   }
 
   @override
-  Future<List<PartyActivityV1>> batchPartyActivities(String correlationId, List<PartyActivityV1> activities) async {
-    activities.forEach((activity) => persistence.create(correlationId, activity));
+  Future<List<PartyActivityV1>> batchPartyActivities(
+      String correlationId, List<PartyActivityV1> activities) async {
+    activities
+        .forEach((activity) => persistence.create(correlationId, activity));
     return activities;
   }
 

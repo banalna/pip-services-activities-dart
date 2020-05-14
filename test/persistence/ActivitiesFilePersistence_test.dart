@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'package:pip_services3_commons/pip_services3_commons.dart';
 
-import 'package:pip_services_activities_dart/pip_services_activities_dart.dart';
+import 'package:pip_services_activities/pip_services_activities.dart';
 import './ActivitiesPersistenceFixture.dart';
 
 void main() {

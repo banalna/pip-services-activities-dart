@@ -2,26 +2,17 @@ import 'dart:convert';
 import 'package:test/test.dart';
 import 'package:http/http.dart' as http;
 import 'package:pip_services3_commons/pip_services3_commons.dart';
-import 'package:pip_services_activities_dart/pip_services_activities_dart.dart';
+import 'package:pip_services_activities/pip_services_activities.dart';
 
 final ACTIVITY = PartyActivityV1(
     id: null,
     type: 'test',
     time: DateTime.now(),
-    party: ReferenceV1(
-        id: '1',
-        type: 'party',
-        name: 'Test User'
-    ),
-    ref_item: ReferenceV1(
-        id: '2',
-        type: 'party',
-        name: 'Admin User'
-    ),
+    party: ReferenceV1(id: '1', type: 'party', name: 'Test User'),
+    ref_item: ReferenceV1(id: '2', type: 'party', name: 'Admin User'),
     ref_parents: [],
     ref_party: null,
-    details: null
-);
+    details: null);
 
 var httpConfig = ConfigParams.fromTuples([
   'connection.protocol',
@@ -54,11 +45,14 @@ void main() {
       service.configure(httpConfig);
 
       var references = References.fromTuples([
-        Descriptor('pip-services-activities', 'persistence', 'memory', 'default', '1.0'),
+        Descriptor('pip-services-activities', 'persistence', 'memory',
+            'default', '1.0'),
         persistence,
-        Descriptor('pip-services-activities', 'controller', 'default', 'default', '1.0'),
+        Descriptor('pip-services-activities', 'controller', 'default',
+            'default', '1.0'),
         controller,
-        Descriptor('pip-services-activities', 'service', 'http', 'default', '1.0'),
+        Descriptor(
+            'pip-services-activities', 'service', 'http', 'default', '1.0'),
         service
       ]);
 
@@ -78,13 +72,17 @@ void main() {
       // Log an activity batch
       var resp = await rest.post(url + '/v1/activities/batch_party_activities',
           headers: {'Content-Type': 'application/json'},
-          body: json.encode({'activities': [ACTIVITY, ACTIVITY, ACTIVITY]})); 
+          body: json.encode({
+            'activities': [ACTIVITY, ACTIVITY, ACTIVITY]
+          }));
 
-      // Get activities          
+      // Get activities
       resp = await rest.post(url + '/v1/activities/get_party_activities',
           headers: {'Content-Type': 'application/json'},
-          body: json.encode({'filter': FilterParams(), 'paging': PagingParams()}));
-      var page = DataPage<PartyActivityV1>.fromJson(json.decode(resp.body), (item) {
+          body: json
+              .encode({'filter': FilterParams(), 'paging': PagingParams()}));
+      var page =
+          DataPage<PartyActivityV1>.fromJson(json.decode(resp.body), (item) {
         var activity = PartyActivityV1();
         activity.fromJson(item);
         return activity;

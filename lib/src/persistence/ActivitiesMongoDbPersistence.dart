@@ -11,7 +11,7 @@ class ActivitiesMongoDbPersistence
     implements IActivitiesPersistence {
   ActivitiesMongoDbPersistence() : super('party_activities') {
     maxPageSize = 1000;
-    super.ensureIndex({ 'time': -1 });
+    super.ensureIndex({'time': -1});
   }
 
   dynamic composeFilter(FilterParams filter) {
@@ -23,14 +23,23 @@ class ActivitiesMongoDbPersistence
     if (search != null) {
       var searchRegex = RegExp(r'^' + search, caseSensitive: false);
       var searchCriteria = [];
-      searchCriteria.add({ 'type': { r'$regex': searchRegex.pattern } });
-      searchCriteria.add({ 'party.name': { r'$regex': searchRegex.pattern } });
-      searchCriteria.add({ 'ref_item.name': { r'$regex': searchRegex.pattern } });
-      searchCriteria.add({ 'ref_party.name': { r'$regex': searchRegex.pattern } });
-      criteria.add({ r'$or': searchCriteria });
-    }    
+      searchCriteria.add({
+        'type': {r'$regex': searchRegex.pattern}
+      });
+      searchCriteria.add({
+        'party.name': {r'$regex': searchRegex.pattern}
+      });
+      searchCriteria.add({
+        'ref_item.name': {r'$regex': searchRegex.pattern}
+      });
+      searchCriteria.add({
+        'ref_party.name': {r'$regex': searchRegex.pattern}
+      });
+      criteria.add({r'$or': searchCriteria});
+    }
 
-    var id = filter.getAsNullableString('id') ?? filter.getAsNullableString('activity_id');
+    var id = filter.getAsNullableString('id') ??
+        filter.getAsNullableString('activity_id');
     if (id != null) {
       criteria.add({'_id': id});
     }
@@ -51,7 +60,9 @@ class ActivitiesMongoDbPersistence
       if (includeTypes is! List) {
         includeTypes = ('' + includeTypes).split(',');
       }
-      criteria.add({ 'type': { r'$in': includeTypes } });
+      criteria.add({
+        'type': {r'$in': includeTypes}
+      });
     }
 
     // Decode exclude types
@@ -60,13 +71,15 @@ class ActivitiesMongoDbPersistence
       if (excludeTypes is! List) {
         excludeTypes = ('' + excludeTypes).split(',');
       }
-      criteria.add({ 'type': { r'$nin': excludeTypes } });
+      criteria.add({
+        'type': {r'$nin': excludeTypes}
+      });
     }
 
     var partyId = filter.getAsNullableString('party_id');
     if (partyId != null) {
       criteria.add({'party.id': partyId});
-    }        
+    }
 
     var refItemId = filter.getAsNullableString('ref_item_id');
     if (refItemId != null) {
@@ -84,14 +97,18 @@ class ActivitiesMongoDbPersistence
     }
 
     var toTime = filter.getAsNullableDateTime('to_time');
-    if (toTime  != null) {
-      criteria.add({'time': { r'$lt': toTime  }});
+    if (toTime != null) {
+      criteria.add({
+        'time': {r'$lt': toTime}
+      });
     }
 
     var fromTime = filter.getAsNullableDateTime('from_time');
     if (fromTime != null) {
-      criteria.add({'time': { r'$gte': fromTime }});
-    }          
+      criteria.add({
+        'time': {r'$gte': fromTime}
+      });
+    }
 
     return criteria.isNotEmpty ? {r'$and': criteria} : null;
   }
@@ -104,7 +121,8 @@ class ActivitiesMongoDbPersistence
   }
 
   @override
-  Future<PartyActivityV1> create(String correlationId, PartyActivityV1 item) async {
+  Future<PartyActivityV1> create(
+      String correlationId, PartyActivityV1 item) async {
     item.ref_parents = item.ref_parents ?? <ReferenceV1>[];
     if (item.ref_item != null) {
       item.ref_parents.add(item.ref_item);
@@ -115,5 +133,5 @@ class ActivitiesMongoDbPersistence
   @override
   Future deleteByFilter(String correlationId, dynamic filter) async {
     return super.deleteByFilter(correlationId, composeFilter(filter));
-  }    
+  }
 }

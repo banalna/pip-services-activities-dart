@@ -3,7 +3,6 @@ import './ReferenceV1Schema.dart';
 
 class PartyActivityV1Schema extends ObjectSchema {
   PartyActivityV1Schema() : super() {
-
     var referenceSchema = ReferenceV1Schema();
 
     withOptionalProperty('id', TypeCode.String);

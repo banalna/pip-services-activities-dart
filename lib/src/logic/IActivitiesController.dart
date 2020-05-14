@@ -6,9 +6,11 @@ abstract class IActivitiesController {
   Future<DataPage<PartyActivityV1>> getPartyActivities(
       String correlationId, FilterParams filter, PagingParams paging);
 
-  Future<PartyActivityV1> logPartyActivity(String correlationId, PartyActivityV1 activity);
+  Future<PartyActivityV1> logPartyActivity(
+      String correlationId, PartyActivityV1 activity);
 
-  Future<List<PartyActivityV1>> batchPartyActivities(String correlationId, List<PartyActivityV1> activities);
+  Future<List<PartyActivityV1>> batchPartyActivities(
+      String correlationId, List<PartyActivityV1> activities);
 
   Future deletePartyActivities(String correlationId, dynamic filter);
 }
