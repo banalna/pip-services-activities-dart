@@ -144,7 +144,7 @@ class ActivitiesMemoryPersistence
   }
 
   @override
-  Future deleteByFilter(String correlationId, dynamic filter) async{
-    await super.deleteByFilter(correlationId, composeFilter(filter));
+  Future deleteByFilter(String correlationId, dynamic filter){
+    return super.deleteByFilter(correlationId, composeFilter(filter));
   }    
 }
