@@ -54,8 +54,7 @@ void main() {
       expect(activity.time, isNotNull);
 
       // Log an activity batch
-      var activities =
-          await controller.batchPartyActivities(null, [ACTIVITY, ACTIVITY]);
+      await controller.batchPartyActivities(null, [ACTIVITY, ACTIVITY]);
 
       // Get all activities
       var page = await controller.getPartyActivities(

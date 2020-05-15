@@ -7,6 +7,7 @@ import '../../src/data/version1/PartyActivityV1.dart';
 class ActivitiesCommandSet extends CommandSet {
   IActivitiesController _controller;
 
+  /// Creates CommandSet object.
   ActivitiesCommandSet(IActivitiesController controller) : super() {
     _controller = controller;
 
@@ -16,6 +17,7 @@ class ActivitiesCommandSet extends CommandSet {
     addCommand(_makeDeletePartyActivitiesCommand());
   }
 
+  /// Creates a getPartyActivities command object and assigns it's parameters.
   ICommand _makeGetPartyActivitiesCommand() {
     return Command(
         'get_party_activities',
@@ -35,7 +37,7 @@ class ActivitiesCommandSet extends CommandSet {
         ObjectSchema(true)
             .withRequiredProperty('activity', PartyActivityV1Schema()),
         (String correlationId, Parameters args) {
-      var activity = PartyActivityV1.fromJsonActivity(args.get('activity'));
+      var activity = PartyActivityV1.fromJson(args.get('activity'));
       activity.time = DateTimeConverter.toNullableDateTime(activity.time);
       return _controller.logPartyActivity(correlationId, activity);
     });
@@ -49,7 +51,7 @@ class ActivitiesCommandSet extends CommandSet {
         (String correlationId, Parameters args) {
       var activities = List<PartyActivityV1>.from(args
           .get('activities')
-          .map((itemsJson) => PartyActivityV1.fromJsonActivity(itemsJson)));
+          .map((itemsJson) => PartyActivityV1.fromJson(itemsJson)));
       activities.forEach((activity) =>
           activity.time = DateTimeConverter.toNullableDateTime(activity.time));
       return _controller.batchPartyActivities(correlationId, activities);

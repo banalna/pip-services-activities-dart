@@ -21,7 +21,7 @@ class ReferenceV1 implements IStringIdentifiable {
     return <String, dynamic>{'id': id, 'type': type, 'name': name};
   }
 
-  factory ReferenceV1.fromJsonRef(Map<String, dynamic> json) {
+  factory ReferenceV1.fromJson(Map<String, dynamic> json) {
     return json != null
         ? ReferenceV1(id: json['id'], type: json['type'], name: json['name'])
         : null;
