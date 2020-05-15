@@ -84,13 +84,13 @@ final ACTIVITY = PartyActivityV1({
 
 ```dart
 // Get the list of activities for 'My Samples' product
-var now = new Date();
+var now = Date();
 try {
 var page = await client.getPartyActivities(
     null,
     {
         party_id: '123',
-        from_time: new Date(now.getTime() - 24 * 3600 * 1000),
+        from_time: Date(now.getTime() - 24 * 3600 * 1000),
         to_time: now
     },
     {

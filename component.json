@@ -1,6 +1,6 @@
 {
-    "name":  "pip-services-activities-dart",
+    "name":  "pip_services_activities",
     "version":  "1.0.0",
     "registry": "pipdevs",
-    "build": 1
+    "build": "0"
 }

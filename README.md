@@ -1,4 +1,5 @@
-# <img src="https://github.com/pip-services/pip-services/raw/master/design/Logo.png" alt="Pip.Services Logo" style="max-width:30%"> <br/> Party Activities Microservice
+# <img src="https://github.com/pip-services/pip-services/raw/master/design/Logo.png" alt="Pip.Services Logo" style="max-width:30%"> 
+# Party Activities Microservice
 
 This is a party activity logging microservice from Pip.Services library. 
 It logs important party activities like signups, signins, 
@@ -159,11 +160,9 @@ The easiest way to work with the microservice is to use client SDK.
 The complete list of available client SDKs for different languages is listed in the [Quick Links](#links)
 
 If you use dart, then get references to the required libraries:
-- Pip.Services3.Commons : https://github.com/pip-services3-dart/pip-services3-commons-dart
-- Pip.Services3.Rpc: 
-https://github.com/pip-services3-dart/pip-services3-rpc-dart
+- [Pip.Services3.Commons](https://github.com/pip-services3-dart/pip-services3-commons-dart)
+- [Pip.Services3.Rpc](https://github.com/pip-services3-dart/pip-services3-rpc-dart)
 
-<!-- Todo: rename pip-templates-microservice-dart -->
 Add **pip-services3-commons-dart** and **pip-templates-microservice-dart** packages
 ```dart
 import 'package:pip_services3_commons/pip_services3_commons.dart';
