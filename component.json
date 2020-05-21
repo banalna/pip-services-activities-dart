@@ -1,6 +1,6 @@
 {
     "name":  "pip_services_activities",
-    "version":  "1.0.0",
+    "version":  "1.0.1",
     "registry": "pipdevs",
     "build": "0"
 }

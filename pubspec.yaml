@@ -1,6 +1,5 @@
 name: pip_services_activities
-version: "1.0.0"
-author: Sergey Seroukhov <seroukhov@gmail.com>
+version: "1.0.1"
 description: Activities microservice for Pip.Services in Dart. It logs important party activities like signups, signins, creation, changes or deletion of data items and so on.
 homepage: https://github.com/pip-services-users/pip-services-activities-dart
 
