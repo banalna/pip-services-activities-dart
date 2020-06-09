@@ -1,5 +1,5 @@
 name: pip_services_activities
-version: "1.0.1"
+version: "1.0.2"
 description: Activities microservice for Pip.Services in Dart. It logs important party activities like signups, signins, creation, changes or deletion of data items and so on.
 homepage: https://github.com/pip-services-users/pip-services-activities-dart
 
@@ -7,13 +7,12 @@ environment:
   sdk: '>=2.0.0 <3.0.0'
 
 dependencies:
-  pip_services3_commons: ">=1.0.5 <2.0.0"
-  pip_services3_components: ">=1.0.2 <2.0.0"
-  pip_services3_data: ">=1.0.0 <2.0.0"
-  pip_services3_mongodb: ">=1.0.2 <2.0.0"
-  pip_services3_rpc: ">=1.0.2 <2.0.0"
-  pip_services3_grpc: ">=1.0.0 <2.0.0"
-  pip_services3_container: ">=1.0.0 <2.0.0"
+  pip_services3_commons: ^1.0.9
+  pip_services3_components: ^1.0.6
+  pip_services3_container: ">=1.0.3 <2.0.0"
+  pip_services3_rpc: ^1.0.3
+  pip_services3_data: ^1.0.5
+  pip_services3_mongodb: ^1.0.4
   http: "^0.12.0"
   angel_framework: ^2.1.1
 

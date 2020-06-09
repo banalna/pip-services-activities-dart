@@ -132,6 +132,6 @@ class ActivitiesMongoDbPersistence
 
   @override
   Future deleteByFilter(String correlationId, dynamic filter) async {
-    return super.deleteByFilter(correlationId, composeFilter(filter));
+    return super.deleteByFilterEx(correlationId, composeFilter(filter));
   }
 }
